@@ -1,0 +1,22 @@
+
+.year {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    align-items: flex-start;
+    grid-gap: 20px;
+
+}
+
+.month {
+    max-height: 600px;
+}
+
+.panel-heading {
+    text-align: center;
+    font-weight: bold;
+}
+
+.panel-heading a {
+    text-decoration-line: none;
+    color: #fff;
+}
