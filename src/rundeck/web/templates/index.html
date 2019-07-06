@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Rundeck Overveiw</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+
+</head>
+<body>
+<div class="header">
+    <span>total: {{ total }}</span>
+</div>
+<div class="year">
+    {% for name, content in year.items() %}
+        <div class="month">
+            <div class="panel panel-primary">
+                <div class="panel-heading center"><a href="#">{{ name }}</a></div>
+                {% if content %}
+                    <div class="panel-body">
+                        {% for job_id, counts in content.items() %}
+                            {{ job_id }}: {{ counts }} <br/>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    <div class="panel-body">not content</div>
+                {% endif %}
+            </div>
+        </div>
+    {% endfor %}
+</div>
+
+
+<script src="https://cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js"></script>
+</body>
+</html>
