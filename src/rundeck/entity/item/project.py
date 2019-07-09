@@ -34,3 +34,20 @@ class InfoItem(Item):
 
     def __repr__(self):
         return f'<{self.__class__.__name__} name={self.name}>'
+
+
+class ProjectArchiveExportAsyncItem(Item):
+    token = Field()
+    ready = Field()
+    percentage = Field()
+
+
+class ProjectArchiveExportAsyncStatusItem(ProjectArchiveExportAsyncItem):
+    pass
+
+
+class ProjectArchiveImportItem(Item):
+    import_status = Field()
+    errors = Field()
+    execution_errors = Field()
+    acl_errors = Field()

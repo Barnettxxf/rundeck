@@ -1,6 +1,7 @@
+from io import BytesIO
+
 import demjson
 import yaml
-from io import BytesIO
 
 from bs4 import BeautifulSoup
 
@@ -17,8 +18,10 @@ class APIBase:
     def get_response(self, endpoint, method='get', **kwargs):
         func = getattr(self.client, method.lower())
         rsp = func(endpoint, **kwargs)
-        text = rsp.text
         content_type = rsp.headers.get('Content-Type', '')
+        if 'zip' in content_type:
+            return BytesIO(rsp.content)
+        text = rsp.text
         if 'yaml' in content_type:
             text = yaml.safe_load(BytesIO(rsp.content))
         try:
