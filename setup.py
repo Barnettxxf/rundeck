@@ -31,6 +31,8 @@ setup(
         "demjson",
         "requests",
         "pytest",
+        "pyyaml",
+        "beautifulsoup4",
         "flask",
         "flask_sqlalchemy",
         "flask_paginate",
