@@ -32,7 +32,7 @@ class APIJobs(APIBase):
         endpoint = f'/api/{self.api_version}/job/{job_id}'
         return self.get_response(endpoint, params=options or {'format': 'yaml'})
 
-    def delete_job(self, job_id):
+    def delete_job(self, job_id, options=None):
         endpoint = f'/api/{self.api_version}/job/{job_id}'
         return self.get_response(endpoint, 'delete')
 

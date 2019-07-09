@@ -1,15 +1,16 @@
-from .base import EntityBase, EntityWithProjectName
+from rundeck.entity.options.base import EmptyOptions
+from .base import EntityWithProjectName
 from ..api.project import APIProjects
 from .item.project import ProjectItem, ResourceItem, InfoItem
 
 
-class ProjectList(EntityBase):
+class ProjectList(EntityWithProjectName):
     api_cls = APIProjects
+    item_cls = ProjectItem
+    api_func_name = 'list_projects'
 
     def __init__(self, client, api_version=19):
-        super().__init__(client, api_version)
-        self._data = self.api.list_projects()
-        self._result = [ProjectItem(**p) for p in self._data]
+        super().__init__(client, '', EmptyOptions, api_version)
 
     @property
     def projects(self):
@@ -18,6 +19,10 @@ class ProjectList(EntityBase):
     @property
     def project_names(self):
         return [x['name'] for x in self._result]
+
+    @property
+    def project_name(self):
+        raise ValueError(f'{self.__class__.__name__} do not support this attribute yet')
 
 
 class ProjectResources(EntityWithProjectName):
@@ -28,11 +33,6 @@ class ProjectResources(EntityWithProjectName):
     @property
     def resources(self):
         return self._result
-
-    def _init(self, pn, o):
-        self._project_name = pn
-        self._data = self.api.list_project_resource(pn)
-        self._result = [self.item_cls(**x) for x in self._data.values()]
 
 
 class ProjectInfo(EntityWithProjectName):

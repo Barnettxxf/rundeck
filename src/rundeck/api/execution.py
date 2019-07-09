@@ -15,7 +15,7 @@ class APIExecutions(APIBase):
         endpoint = f'/api/{self.api_version}/project/{project_name}/executions/running'
         return self.get_response(endpoint)
 
-    def execution_info(self, execution_id):
+    def execution_info(self, execution_id, options=None):
         endpoint = f'/api/{self.api_version}/execution/{execution_id}'
         return self.get_response(endpoint)
 
@@ -25,6 +25,6 @@ class APIExecutions(APIBase):
             if project_name else f'/api/{self.api_version}/executions/metrics'
         return self.get_response(endpoint, params=options)
 
-    def execution_state(self, execution_id):
+    def execution_state(self, execution_id, options=None):
         endpoint = f'/api/{self.api_version}/execution/{execution_id}/state'
         return self.get_response(endpoint)

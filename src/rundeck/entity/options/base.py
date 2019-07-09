@@ -6,3 +6,7 @@ class OptionsBase(Item):
 
     def _handle_not_set_field(self):
         pass
+
+
+class EmptyOptions(Item):
+    pass

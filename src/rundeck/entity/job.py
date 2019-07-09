@@ -1,4 +1,4 @@
-from .base import EntityBase, EntityWithProjectName
+from .base import EntityWithProjectName, EntityWithJobId
 from ..api.job import APIJobs
 from .item.job import JobListItem, RunJobItem, ImportJobItem, JobForecastItem, JobMetadataItem, ExportJobItem
 
@@ -17,66 +17,51 @@ class JobList(EntityWithProjectName):
         return [job['id'] for job in self._result]
 
 
-class RunJob(EntityBase):
+class RunJob(EntityWithJobId):
     api_cls = APIJobs
-
-    def __init__(self, job_id, client, options, api_version=19):
-        super().__init__(client, api_version)
-        self._data = self.api.run_job(job_id, options)
-        self._result = RunJobItem(**self.data)
+    api_func_name = 'run_job'
+    item_cls = RunJobItem
 
     @property
     def state(self):
         return self._result
 
 
-class ExportJob(EntityBase):
+class ExportJob(EntityWithJobId):
     api_cls = APIJobs
+    api_func_name = 'export_jobs'
+    item_cls = ExportJobItem
 
-    def __init__(self, job_id, client, options=None, api_version=19):
-        super().__init__(client, api_version)
-        self._data = self.api.export_jobs(job_id, options)
-        self._result = [ExportJobItem(**x) for x in self._data]
+    @property
+    def exports(self):
+        return self._result
+
+
+class ImportJob(EntityWithJobId):
+    api_cls = APIJobs
+    api_func_name = 'import_jobs'
+    item_cls = ImportJobItem
 
     @property
     def result(self):
         return self._result
 
 
-class ImportJob(EntityBase):
+class JobForecast(EntityWithJobId):
     api_cls = APIJobs
-
-    def __init__(self, job_id, client, options, api_version=19):
-        super().__init__(client, api_version)
-        self._data = self.api.import_jobs(job_id, options)
-        self._result = ImportJobItem(**self._data)
-
-    @property
-    def result(self):
-        return self._result
-
-
-class JobForecast(EntityBase):
-    api_cls = APIJobs
-
-    def __init__(self, job_id, client, options=None, api_version=19):
-        super().__init__(client, api_version)
-        self._data = self.api.get_job_forecast(job_id, options)
-        self._result = JobForecastItem(**self._data)
+    api_func_name = 'get_job_forecast'
+    item_cls = JobForecastItem
 
     @property
     def forecast(self):
         return self._result
 
 
-class JobMetadata(EntityBase):
+class JobMetadata(EntityWithJobId):
     api_cls = APIJobs
-
-    def __init__(self, job_id, client, options=None, api_version=19):
-        super().__init__(client, api_version)
-        self._data = self.api.get_job_metadata(job_id, options)
-        self._result = JobMetadataItem(**self._data)
+    api_func_name = 'get_job_metadata'
+    item_cls = JobMetadataItem
 
     @property
-    def result(self):
+    def metadata(self):
         return self._result

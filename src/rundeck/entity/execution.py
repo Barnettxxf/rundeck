@@ -1,9 +1,9 @@
-from .base import EntityBase
+from .base import EntityWithExecId, EntityWithJobId, EntityWithProjectName, Entity
 from .item.execution import ExecutionItem, ExecutionPageItem, ExecutionQueryMetricItem, ExecutionStateItem
 from ..api import APIExecutions
 
 
-class _ExecutionListAndPage(EntityBase):
+class _ExecutionListAndPage(Entity):
     api_cls = APIExecutions
     api_func_name = None
 
@@ -25,61 +25,63 @@ class _ExecutionListAndPage(EntityBase):
         self._page = ExecutionPageItem(**self._data['paging'])
 
 
-class ExecutionByJob(_ExecutionListAndPage):
+class ExecutionByJob(EntityWithJobId):
+    api_cls = APIExecutions
+    item_cls = ExecutionItem
+    paging_cls = ExecutionPageItem
     api_func_name = 'list_executions_by_job'
 
-    def __init__(self, job_id, client, option=None, api_version=19):
-        super().__init__(job_id, client, option, api_version)
+    @property
+    def page(self):
+        return self._page
 
 
-class ExecutionByProject(_ExecutionListAndPage):
+class ExecutionByProject(EntityWithProjectName):
+    api_cls = APIExecutions
+    item_cls = ExecutionItem
+    paging_cls = ExecutionPageItem
     api_func_name = 'list_executions_by_project'
 
-    def __init__(self, project_name, client, option=None, api_version=19):
-        super().__init__(project_name, client, option, api_version)
+    @property
+    def page(self):
+        return self._page
 
 
-class ExecutionRunningList(_ExecutionListAndPage):
+class ExecutionRunningList(EntityWithProjectName):
+    api_cls = APIExecutions
+    item_cls = ExecutionItem
+    paging_cls = ExecutionPageItem
     api_func_name = 'list_running_executions'
 
-    def __init__(self, project_name, client, option=None, api_version=19):
-        super().__init__(project_name, client, option, api_version)
+    @property
+    def page(self):
+        return self._page
 
 
-class ExecutionInfo(EntityBase):
+class ExecutionInfo(EntityWithExecId):
     api_cls = APIExecutions
-
-    def __init__(self, exec_id, client, api_version=19):
-        super().__init__(client, api_version)
-        self._data = self.api.execution_info(exec_id)
-        self._result = ExecutionItem(**self._data)
+    api_func_name = 'execution_info'
+    item_cls = ExecutionItem
 
     @property
     def executions(self):
         return self._result
 
 
-class ExecutionQueryMetric(EntityBase):
+class ExecutionQueryMetric(EntityWithProjectName):
     api_cls = APIExecutions
-
-    def __init__(self, project_name, client, api_version=19):
-        super().__init__(client, api_version)
-        self._data = self.api.execution_query_metrics(project_name)
-        self._result = ExecutionQueryMetricItem(**self._data)
+    api_func_name = 'execution_query_metrics'
+    item_cls = ExecutionQueryMetricItem
 
     @property
     def query_metric(self):
         return self._result
 
 
-# TODO 待完成，有点多
-class ExecutionState(EntityBase):
+class ExecutionState(EntityWithExecId):
     api_cls = APIExecutions
-
-    def __init__(self, exec_id, client, api_version=19):
-        super().__init__(client, api_version)
-        self._data = self.api.execution_state(exec_id)
-        self._result = ExecutionStateItem(**self._data)
+    api_func_name = 'execution_state'
+    item_cls = ExecutionStateItem
 
     @property
     def state(self):
