@@ -61,7 +61,6 @@ class BulkToggleJobScheduleOptions(BulkToggleJobExecutionOptions):
 
 class UploadJobOptionFileOptions(OptionsBase):
     file = Field()
-    headers = Field()
     optionName = Field()
     fileName = Field()
 
