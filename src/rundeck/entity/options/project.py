@@ -22,3 +22,17 @@ class ProjectArchiveImportOption(OptionsBase):
     importConfig = Field()
     importACL = Field()
     importScm = Field()
+
+
+class History(OptionsBase):
+    jobIdFilter = Field()
+    reportIdFilter = Field()
+    userFilter = Field()
+    statFilter = Field()
+    jobListFilter = Field()
+    excludeJobListFilter = Field()
+    recentFilter = Field()
+    begin = Field()
+    end = Field()
+    max = Field()
+    offset = Field()

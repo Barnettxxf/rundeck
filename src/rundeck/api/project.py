@@ -34,3 +34,7 @@ class APIProjects(APIBase):
     def project_archive_import(self, project_name, options=None):
         endpoint = f'/api/{self.api_version}/project/{project_name}/import'
         return self.get_response(endpoint, 'put', params=options)
+
+    def history(self, project_name, options=None):
+        endpoint = f'/api/{self.api_version}/project/{project_name}/history'
+        return self.get_response(endpoint, params=options)

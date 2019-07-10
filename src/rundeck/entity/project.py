@@ -1,7 +1,8 @@
 from rundeck.entity.options.base import EmptyOptions
 from .base import EntityWithProjectName
 from ..api.project import APIProjects
-from .item.project import ProjectItem, ResourceItem, InfoItem
+from .item.project import ProjectItem, ResourceItem, InfoItem, EventsItem, ProjectArchiveExportAsyncItem, \
+    ProjectArchiveExportAsyncStatusItem, ProjectArchiveImportItem
 
 
 class ProjectList(EntityWithProjectName):
@@ -42,4 +43,54 @@ class ProjectInfo(EntityWithProjectName):
 
     @property
     def project_info(self):
+        return self._result
+
+
+class ProjectArchiveExport(EntityWithProjectName):
+    api_cls = APIProjects
+    api_func_name = 'project_archive_export'
+
+    @property
+    def zip_stream(self):
+        return self._result
+
+
+class ProjectArchiveExportAsync(EntityWithProjectName):
+    api_cls = APIProjects
+    item_cls = ProjectArchiveExportAsyncItem
+    api_func_name = 'project_archive_export_async'
+
+    @property
+    def status(self):
+        return self._result
+
+
+class ProjectArchiveExportAsyncStatus(EntityWithProjectName):
+    api_cls = APIProjects
+    item_cls = ProjectArchiveExportAsyncStatusItem
+    api_func_name = 'project_archive_export_async_status'
+
+    @property
+    def status(self):
+        return self._result
+
+
+class ProjectArchiveImport(EntityWithProjectName):
+    api_cls = APIProjects
+    item_cls = ProjectArchiveImportItem
+    api_func_name = 'project_archive_import'
+
+    @property
+    def result(self):
+        return self._result
+
+
+class ListHistory(EntityWithProjectName):
+    api_cls = APIProjects
+    item_cls = EventsItem
+    api_func_name = 'history'
+    result_key = 'events'
+
+    @property
+    def events(self):
         return self._result

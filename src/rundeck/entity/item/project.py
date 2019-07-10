@@ -51,3 +51,19 @@ class ProjectArchiveImportItem(Item):
     errors = Field()
     execution_errors = Field()
     acl_errors = Field()
+
+
+class EventsItem(Item):
+    starttime = Field()
+    endtime = Field()
+    title = Field()
+    status = Field()
+    statusString = Field()
+    summary = Field()
+    node_summary = Field()
+    user = Field()
+    date_started = Field()
+    date_ended = Field()
+    project = Field()
+    job = Field()
+    execution = Field()

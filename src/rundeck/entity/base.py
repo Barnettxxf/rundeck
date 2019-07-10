@@ -4,10 +4,10 @@ class Entity:
     api_func_name = None
     paging_cls = None
     options_cls = None
+    result_key = 'executions'
 
     def __init__(self, client, itm_id, options=None, api_version=19):
         assert self.api_cls
-        assert self.item_cls
         assert self.api_func_name
 
         self.api = self.api_cls(client, api_version)
@@ -24,7 +24,7 @@ class Entity:
         if self.item_cls:
             if self.paging_cls:
                 self._page = self.paging_cls(**self._data['paging'])
-                self._result = [self.item_cls(**x) for x in self._data['executions']]
+                self._result = [self.item_cls(**x) for x in self._data[self.result_key]]
             else:
                 self._result = [self.item_cls(**x) for x in self._data] \
                     if isinstance(self._data, list) else self.item_cls(**self._data)
