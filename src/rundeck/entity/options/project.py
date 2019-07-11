@@ -16,12 +16,17 @@ class ProjectArchiveExportAsyncOptions(OptionsBase):
     token = Field()
 
 
+class ProjectArchiveExportAsyncDownloadOptions(ProjectArchiveExportAsyncOptions):
+    pass
+
+
 class ProjectArchiveImportOption(OptionsBase):
-    jobUuidOption = Field()
-    importExecutions = Field()
-    importConfig = Field()
-    importACL = Field()
-    importScm = Field()
+    jobUuidOption = Field(type_=['preserve', 'remove'])
+    importExecutions = Field(type_=bool)
+    importConfig = Field(type_=bool)
+    importACL = Field(type_=bool)
+    importScm = Field(type_=bool)
+    files = Field(type_=dict)
 
 
 class History(OptionsBase):

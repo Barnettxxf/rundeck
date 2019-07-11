@@ -20,7 +20,7 @@ class APIBase:
         rsp = func(endpoint, **kwargs)
         content_type = rsp.headers.get('Content-Type', '')
         if 'zip' in content_type:
-            return BytesIO(rsp.content)
+            return rsp.content
         text = rsp.text
         if 'yaml' in content_type:
             text = yaml.safe_load(BytesIO(rsp.content))

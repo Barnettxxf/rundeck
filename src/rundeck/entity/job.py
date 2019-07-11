@@ -4,9 +4,9 @@ from .item.job import JobListItem, RunJobItem, ImportJobItem, JobForecastItem, J
 
 
 class JobList(EntityWithProjectName):
-    api_cls = APIJobs
-    item_cls = JobListItem
-    api_func_name = 'list_jobs'
+    _api_cls = APIJobs
+    _item_cls = JobListItem
+    _api_func_name = 'list_jobs'
 
     @property
     def jobs(self):
@@ -18,9 +18,9 @@ class JobList(EntityWithProjectName):
 
 
 class RunJob(EntityWithJobId):
-    api_cls = APIJobs
-    api_func_name = 'run_job'
-    item_cls = RunJobItem
+    _api_cls = APIJobs
+    _api_func_name = 'run_job'
+    _item_cls = RunJobItem
 
     @property
     def state(self):
@@ -28,9 +28,9 @@ class RunJob(EntityWithJobId):
 
 
 class ExportJob(EntityWithJobId):
-    api_cls = APIJobs
-    api_func_name = 'export_jobs'
-    item_cls = ExportJobItem
+    _api_cls = APIJobs
+    _api_func_name = 'export_jobs'
+    _item_cls = ExportJobItem
 
     @property
     def exports(self):
@@ -38,9 +38,9 @@ class ExportJob(EntityWithJobId):
 
 
 class ImportJob(EntityWithJobId):
-    api_cls = APIJobs
-    api_func_name = 'import_jobs'
-    item_cls = ImportJobItem
+    _api_cls = APIJobs
+    _api_func_name = 'import_jobs'
+    _item_cls = ImportJobItem
 
     @property
     def result(self):
@@ -48,9 +48,9 @@ class ImportJob(EntityWithJobId):
 
 
 class JobForecast(EntityWithJobId):
-    api_cls = APIJobs
-    api_func_name = 'get_job_forecast'
-    item_cls = JobForecastItem
+    _api_cls = APIJobs
+    _api_func_name = 'get_job_forecast'
+    _item_cls = JobForecastItem
 
     @property
     def forecast(self):
@@ -58,9 +58,9 @@ class JobForecast(EntityWithJobId):
 
 
 class JobMetadata(EntityWithJobId):
-    api_cls = APIJobs
-    api_func_name = 'get_job_metadata'
-    item_cls = JobMetadataItem
+    _api_cls = APIJobs
+    _api_func_name = 'get_job_metadata'
+    _item_cls = JobMetadataItem
 
     @property
     def metadata(self):

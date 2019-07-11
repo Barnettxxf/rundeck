@@ -33,7 +33,9 @@ class APIProjects(APIBase):
 
     def project_archive_import(self, project_name, options=None):
         endpoint = f'/api/{self.api_version}/project/{project_name}/import'
-        return self.get_response(endpoint, 'put', params=options)
+        headers = options.pop('headers', {'Content-Type': 'application/zip'})
+        files = options.pop('files')
+        return self.get_response(endpoint, 'put', files=files, headers=headers, params=options)
 
     def history(self, project_name, options=None):
         endpoint = f'/api/{self.api_version}/project/{project_name}/history'

@@ -4,8 +4,8 @@ from ..api import APIExecutions
 
 
 class _ExecutionListAndPage(Entity):
-    api_cls = APIExecutions
-    api_func_name = None
+    _api_cls = APIExecutions
+    _api_func_name = None
 
     def __init__(self, itm_id, client, option=None, api_version=19):
         super().__init__(client, api_version)
@@ -26,10 +26,10 @@ class _ExecutionListAndPage(Entity):
 
 
 class ExecutionByJob(EntityWithJobId):
-    api_cls = APIExecutions
-    item_cls = ExecutionItem
-    paging_cls = ExecutionPageItem
-    api_func_name = 'list_executions_by_job'
+    _api_cls = APIExecutions
+    _item_cls = ExecutionItem
+    _paging_cls = ExecutionPageItem
+    _api_func_name = 'list_executions_by_job'
 
     @property
     def page(self):
@@ -37,10 +37,10 @@ class ExecutionByJob(EntityWithJobId):
 
 
 class ExecutionByProject(EntityWithProjectName):
-    api_cls = APIExecutions
-    item_cls = ExecutionItem
-    paging_cls = ExecutionPageItem
-    api_func_name = 'list_executions_by_project'
+    _api_cls = APIExecutions
+    _item_cls = ExecutionItem
+    _paging_cls = ExecutionPageItem
+    _api_func_name = 'list_executions_by_project'
 
     @property
     def page(self):
@@ -48,10 +48,10 @@ class ExecutionByProject(EntityWithProjectName):
 
 
 class ExecutionRunningList(EntityWithProjectName):
-    api_cls = APIExecutions
-    item_cls = ExecutionItem
-    paging_cls = ExecutionPageItem
-    api_func_name = 'list_running_executions'
+    _api_cls = APIExecutions
+    _item_cls = ExecutionItem
+    _paging_cls = ExecutionPageItem
+    _api_func_name = 'list_running_executions'
 
     @property
     def page(self):
@@ -59,9 +59,9 @@ class ExecutionRunningList(EntityWithProjectName):
 
 
 class ExecutionInfo(EntityWithExecId):
-    api_cls = APIExecutions
-    api_func_name = 'execution_info'
-    item_cls = ExecutionItem
+    _api_cls = APIExecutions
+    _api_func_name = 'execution_info'
+    _item_cls = ExecutionItem
 
     @property
     def executions(self):
@@ -69,9 +69,9 @@ class ExecutionInfo(EntityWithExecId):
 
 
 class ExecutionQueryMetric(EntityWithProjectName):
-    api_cls = APIExecutions
-    api_func_name = 'execution_query_metrics'
-    item_cls = ExecutionQueryMetricItem
+    _api_cls = APIExecutions
+    _api_func_name = 'execution_query_metrics'
+    _item_cls = ExecutionQueryMetricItem
 
     @property
     def query_metric(self):
@@ -79,9 +79,9 @@ class ExecutionQueryMetric(EntityWithProjectName):
 
 
 class ExecutionState(EntityWithExecId):
-    api_cls = APIExecutions
-    api_func_name = 'execution_state'
-    item_cls = ExecutionStateItem
+    _api_cls = APIExecutions
+    _api_func_name = 'execution_state'
+    _item_cls = ExecutionStateItem
 
     @property
     def state(self):

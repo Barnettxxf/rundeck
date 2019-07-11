@@ -1,16 +1,19 @@
+import io
+
+
 class Entity:
-    api_cls = None
-    item_cls = None
-    api_func_name = None
-    paging_cls = None
-    options_cls = None
-    result_key = 'executions'
+    _api_cls = None
+    _item_cls = None
+    _api_func_name = None
+    _paging_cls = None
+    _options_cls = None
+    _result_key = 'executions'
 
     def __init__(self, client, itm_id, options=None, api_version=19):
-        assert self.api_cls
-        assert self.api_func_name
+        assert self._api_cls
+        assert self._api_func_name
 
-        self.api = self.api_cls(client, api_version)
+        self.api = self._api_cls(client, api_version)
 
         self.client = client
         self.api_version = api_version
@@ -20,20 +23,23 @@ class Entity:
 
     def _init(self, itm_id, o):
         self._itm_id = itm_id
-        self._data = getattr(self.api, self.api_func_name)(itm_id, o)
-        if self.item_cls:
-            if self.paging_cls:
-                self._page = self.paging_cls(**self._data['paging'])
-                self._result = [self.item_cls(**x) for x in self._data[self.result_key]]
+        self._data = getattr(self.api, self._api_func_name)(itm_id, o)
+        if self._item_cls:
+            if self._paging_cls:
+                self._page = self._paging_cls(**self._data['paging'])
+                self._result = [self._item_cls(**x) for x in self._data[self._result_key]]
             else:
-                self._result = [self.item_cls(**x) for x in self._data] \
-                    if isinstance(self._data, list) else self.item_cls(**self._data)
+                self._result = [self._item_cls(**x) for x in self._data] \
+                    if isinstance(self._data, list) else self._item_cls(**self._data)
         else:
-            self._result = self._data
+            if isinstance(self._data, bytes):
+                self._result = io.BytesIO(self._data)
+            else:
+                self._result = self._data
 
     def asset_options(self):
-        if self.options_cls:
-            assert isinstance(self.options, self.options_cls)
+        if self._options_cls:
+            assert isinstance(self.options, self._options_cls)
 
     @property
     def data(self):

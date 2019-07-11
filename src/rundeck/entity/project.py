@@ -6,9 +6,9 @@ from .item.project import ProjectItem, ResourceItem, InfoItem, EventsItem, Proje
 
 
 class ProjectList(EntityWithProjectName):
-    api_cls = APIProjects
-    item_cls = ProjectItem
-    api_func_name = 'list_projects'
+    _api_cls = APIProjects
+    _item_cls = ProjectItem
+    _api_func_name = 'list_projects'
 
     def __init__(self, client, api_version=19):
         super().__init__(client, '', EmptyOptions, api_version)
@@ -27,9 +27,9 @@ class ProjectList(EntityWithProjectName):
 
 
 class ProjectResources(EntityWithProjectName):
-    api_cls = APIProjects
-    item_cls = ResourceItem
-    api_func_name = 'list_project_resource'
+    _api_cls = APIProjects
+    _item_cls = ResourceItem
+    _api_func_name = 'list_project_resource'
 
     @property
     def resources(self):
@@ -37,9 +37,9 @@ class ProjectResources(EntityWithProjectName):
 
 
 class ProjectInfo(EntityWithProjectName):
-    api_cls = APIProjects
-    item_cls = InfoItem
-    api_func_name = 'get_project_info'
+    _api_cls = APIProjects
+    _item_cls = InfoItem
+    _api_func_name = 'get_project_info'
 
     @property
     def project_info(self):
@@ -47,8 +47,8 @@ class ProjectInfo(EntityWithProjectName):
 
 
 class ProjectArchiveExport(EntityWithProjectName):
-    api_cls = APIProjects
-    api_func_name = 'project_archive_export'
+    _api_cls = APIProjects
+    _api_func_name = 'project_archive_export'
 
     @property
     def zip_stream(self):
@@ -56,9 +56,9 @@ class ProjectArchiveExport(EntityWithProjectName):
 
 
 class ProjectArchiveExportAsync(EntityWithProjectName):
-    api_cls = APIProjects
-    item_cls = ProjectArchiveExportAsyncItem
-    api_func_name = 'project_archive_export_async'
+    _api_cls = APIProjects
+    _item_cls = ProjectArchiveExportAsyncItem
+    _api_func_name = 'project_archive_export_async'
 
     @property
     def status(self):
@@ -66,30 +66,39 @@ class ProjectArchiveExportAsync(EntityWithProjectName):
 
 
 class ProjectArchiveExportAsyncStatus(EntityWithProjectName):
-    api_cls = APIProjects
-    item_cls = ProjectArchiveExportAsyncStatusItem
-    api_func_name = 'project_archive_export_async_status'
+    _api_cls = APIProjects
+    _item_cls = ProjectArchiveExportAsyncStatusItem
+    _api_func_name = 'project_archive_export_async_status'
 
     @property
     def status(self):
         return self._result
 
 
-class ProjectArchiveImport(EntityWithProjectName):
-    api_cls = APIProjects
-    item_cls = ProjectArchiveImportItem
-    api_func_name = 'project_archive_import'
+class ProjectArchiveExportAsyncDownload(EntityWithProjectName):
+    _api_cls = APIProjects
+    _api_func_name = 'project_archive_export_async_download'
 
     @property
-    def result(self):
+    def zip_stream(self):
+        return self._result
+
+
+class ProjectArchiveImport(EntityWithProjectName):
+    _api_cls = APIProjects
+    _item_cls = ProjectArchiveImportItem
+    _api_func_name = 'project_archive_import'
+
+    @property
+    def status(self):
         return self._result
 
 
 class ListHistory(EntityWithProjectName):
-    api_cls = APIProjects
-    item_cls = EventsItem
-    api_func_name = 'history'
-    result_key = 'events'
+    _api_cls = APIProjects
+    _item_cls = EventsItem
+    _api_func_name = 'history'
+    _result_key = 'events'
 
     @property
     def events(self):

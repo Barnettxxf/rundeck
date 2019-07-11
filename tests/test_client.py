@@ -31,3 +31,4 @@ def test_auth_fail():
     with pytest.raises(AuthFailError):
         list_projects = '/api/19/projects'
         cli.get(list_projects)
+    cli.close()

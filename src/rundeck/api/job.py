@@ -71,10 +71,10 @@ class APIJobs(APIBase):
         return self.get_response(endpoint)
 
     def upload_job_option_file(self, job_id, options: dict):
-        file = options.pop('file')
+        files = options.pop('files')
         headers = options.pop('headers', {'Content-Type': 'octet/stream'})
         endpoint = f'api/{self.api_version}/job/{job_id}/input/file'
-        return self.get_response(endpoint, 'post', headers=headers, file=file, params=options)
+        return self.get_response(endpoint, 'post', headers=headers, files=files, params=options)
 
     def list_job_uploaded_file(self, job_id, options: dict):
         endpoint = f'/api/{self.api_version}/job/{job_id}/input/files'
