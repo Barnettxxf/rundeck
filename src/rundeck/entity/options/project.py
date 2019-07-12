@@ -1,6 +1,11 @@
 from .base import OptionsBase, Field
 
 
+class ProjectCreationOptions(OptionsBase):
+    name = Field()
+    config = Field()
+
+
 class ProjectArchiveExportOptions(OptionsBase):
     executionIds = Field()
     exportAll = Field(type_=bool)
@@ -12,11 +17,15 @@ class ProjectArchiveExportOptions(OptionsBase):
     exportScm = Field(type_=bool)
 
 
-class ProjectArchiveExportAsyncOptions(OptionsBase):
+class ProjectArchiveExportAsyncOptions(ProjectArchiveExportOptions):
+    pass
+
+
+class ProjectArchiveExportAsyncStatusOptions(OptionsBase):
     token = Field()
 
 
-class ProjectArchiveExportAsyncDownloadOptions(ProjectArchiveExportAsyncOptions):
+class ProjectArchiveExportAsyncDownloadOptions(ProjectArchiveExportAsyncStatusOptions):
     pass
 
 
@@ -26,7 +35,7 @@ class ProjectArchiveImportOption(OptionsBase):
     importConfig = Field(type_=bool)
     importACL = Field(type_=bool)
     importScm = Field(type_=bool)
-    files = Field(type_=dict)
+    file = Field(type_=bytes)
 
 
 class History(OptionsBase):

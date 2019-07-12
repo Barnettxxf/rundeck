@@ -3,6 +3,11 @@ from .base import APIBase
 
 class APIProjects(APIBase):
 
+    def create_project(self, project_name=None, options=None):
+        endpoint = f'/api/{self.api_version}/projects'
+        headers = options.pop('headers', {'Content-Type': 'application/json'})
+        return self.get_response(endpoint, 'post', headers=headers, data=options)
+
     def list_projects(self, project_name=None, options=None):
         endpoint = f'/api/{self.api_version}/projects'
         return self.get_response(endpoint)
@@ -21,21 +26,21 @@ class APIProjects(APIBase):
 
     def project_archive_export_async(self, project_name, options=None):
         endpoint = f'/api/{self.api_version}/project/{project_name}/export/async'
-        return self.get_response(endpoint, data=options)
+        return self.get_response(endpoint, params=options)
 
     def project_archive_export_async_status(self, project_name, options):
-        endpoint = f'/api/{self.api_version}/project/{project_name}/export/status/{options.pop("token")}'
-        return self.get_response(endpoint, data=options)
+        endpoint = f'/api/{self.api_version}/project/{project_name}/export/status/{options["token"]}'
+        return self.get_response(endpoint)
 
     def project_archive_export_async_download(self, project_name, options):
-        endpoint = f'/api/{self.api_version}/project/{project_name}/export/download/{options.pop("token")}'
-        return self.get_response(endpoint, data=options)
+        endpoint = f'/api/{self.api_version}/project/{project_name}/export/download/{options["token"]}'
+        return self.get_response(endpoint)
 
     def project_archive_import(self, project_name, options=None):
         endpoint = f'/api/{self.api_version}/project/{project_name}/import'
         headers = options.pop('headers', {'Content-Type': 'application/zip'})
         files = options.pop('files')
-        return self.get_response(endpoint, 'put', files=files, headers=headers, params=options)
+        return self.get_response(endpoint, 'put', data=files, headers=headers, params=options)
 
     def history(self, project_name, options=None):
         endpoint = f'/api/{self.api_version}/project/{project_name}/history'

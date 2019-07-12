@@ -5,6 +5,19 @@ from .item.project import ProjectItem, ResourceItem, InfoItem, EventsItem, Proje
     ProjectArchiveExportAsyncStatusItem, ProjectArchiveImportItem
 
 
+class ProjectCreation(EntityWithProjectName):
+    _api_cls = APIProjects
+    _item_cls = InfoItem
+    _api_func_name = 'create_project'
+
+    def __init__(self, client, options, api_version=19):
+        super().__init__(client, '', options, api_version)
+
+    @property
+    def project_info(self):
+        return self._result
+
+
 class ProjectList(EntityWithProjectName):
     _api_cls = APIProjects
     _item_cls = ProjectItem
@@ -73,6 +86,10 @@ class ProjectArchiveExportAsyncStatus(EntityWithProjectName):
     @property
     def status(self):
         return self._result
+
+    def refresh(self):
+        self._init(self._itm_id, self.options)
+        return self.status
 
 
 class ProjectArchiveExportAsyncDownload(EntityWithProjectName):

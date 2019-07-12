@@ -41,36 +41,55 @@ def test_project_import(cli):
     from rundeck.entity.options.project import ProjectArchiveImportOption
     with open('Spider.zip', 'rb') as f:
         options = ProjectArchiveImportOption(
+            jobUuidOption='remove',
             importExecutions=True,
             importConfig=True,
             importACL=True,
             importScm=True,
-            files={'file': f}
+            file=f.read()
         )
-        lp = project.ProjectArchiveImport(cli, '1hai', options=options)
+        lp = project.ProjectArchiveImport(cli, 'test', options=options)
         assert lp.data
         assert lp.status
 
 
 def test_project_export_async(cli):
     project_name = project.ProjectList(cli).project_names[-1]
-    lp = project.ProjectArchiveExportAsync(cli, project_name)
-
-    assert lp.status
 
     from rundeck.entity.options.project import ProjectArchiveExportAsyncOptions
     options = ProjectArchiveExportAsyncOptions(
+        exportAll=True,
+        exportJobs=True,
+        exportExecutions=True,
+        exportConfigs=True,
+        exportReadmes=True,
+        exportAcls=True,
+        exportScm=True,
+    )
+
+    lp = project.ProjectArchiveExportAsync(cli, project_name, options=options)
+
+    assert lp.status
+
+    from rundeck.entity.options.project import ProjectArchiveExportAsyncStatusOptions
+    options = ProjectArchiveExportAsyncStatusOptions(
         token=lp.status.token
     )
     lp = project.ProjectArchiveExportAsyncStatus(cli, project_name, options=options)
     assert lp.status
 
-    if lp.status.ready:
+    while True:
+        if not lp.refresh().ready:
+            continue
+
         from rundeck.entity.options.project import ProjectArchiveExportAsyncDownloadOptions
         options = ProjectArchiveExportAsyncDownloadOptions(
             token=lp.status.token
         )
         lp = project.ProjectArchiveExportAsyncDownload(cli, project_name, options=options)
-
         with open(f'{project_name}.zip', 'wb') as f:
             f.write(lp.data)
+
+        break
+
+
