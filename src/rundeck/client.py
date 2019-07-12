@@ -22,10 +22,17 @@ class BaseClient:
         self._is_auth = False
 
     def auth(self):
-        rsp = self._session.post(self._base_url + '/j_security_check', headers=self.headers, data={
-            'j_username': self.config['username'],
-            'j_password': self.config['password'],
-        })
+        if not self.config['token']:
+            rsp = self._session.post(self._base_url + '/j_security_check', headers=self.headers, data={
+                'j_username': self.config['username'],
+                'j_password': self.config['password'],
+            })
+        else:
+            headers = self.headers.copy()
+            headers.update({
+                'X-Rundeck-Auth-Token': self.config['token']
+            })
+            rsp = self._session.post(self._base_url + '/api/1/projects', headers=headers)
 
         if 'Invalid username and password' in rsp.text:
             raise AuthFailError('Invalid username and password')

@@ -4,8 +4,9 @@ import six
 
 
 class Field:
-    def __init__(self, type_=None):
+    def __init__(self, type_=None, default=None):
         self.type = type_
+        self.default = default
 
     def detect_type(self, value):
         if isinstance(self.type, list):
