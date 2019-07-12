@@ -176,3 +176,47 @@ class Rundeck:
     def history(self, project_name, options=None, **kwargs):
         from .entity.project import ListHistory
         return ListHistory(self.cli, project_name, options, **kwargs)
+
+    def list_jobs(self, project_name, options=None, **kwargs):
+        from .entity.job import JobList
+        return JobList(self.cli, project_name, options, **kwargs)
+
+    def run_job(self, job_id, options=None, **kwargs):
+        from .entity.job import RunJob
+        return RunJob(self.cli, job_id, options, **kwargs)
+
+    def export_jobs(self, project_name, options=None, **kwargs):
+        from .entity.job import ExportJob
+        return ExportJob(self.cli, project_name, options, **kwargs)
+
+    def import_jobs(self, project_name, options=None, **kwargs):
+        from .entity.job import ImportJob
+        return ImportJob(self.cli, project_name, options, **kwargs)
+
+    def get_job_metadata(self, job_id, options=None, **kwargs):
+        from .entity.job import JobMetadata
+        return JobMetadata(self.cli, job_id, options, **kwargs)
+
+    def get_executions_by_job(self, job_id, options=None, **kwargs):
+        from .entity.execution import ExecutionByJob
+        return ExecutionByJob(self.cli, job_id, options, **kwargs)
+
+    def get_executions_by_project(self, project_name, options=None, **kwargs):
+        from .entity.execution import ExecutionByProject
+        return ExecutionByProject(self.cli, project_name, options, **kwargs)
+
+    def get_execution_running_list(self, project_name='*', **kwargs):
+        from .entity.execution import ExecutionRunningList
+        return ExecutionRunningList(self.cli, project_name, **kwargs)
+
+    def get_execution_info(self, exec_id, **kwargs):
+        from .entity.execution import ExecutionInfo
+        return ExecutionInfo(self.cli, exec_id, **kwargs)
+
+    def get_query_metric_of_exection(self, project_name=None, options=None, **kwargs):
+        from .entity.execution import ExecutionQueryMetric
+        return ExecutionQueryMetric(self.cli, project_name, options, **kwargs)
+
+    def get_execution_state(self, exec_id, **kwargs):
+        from .entity.execution import ExecutionState
+        return ExecutionState(self.cli, exec_id, **kwargs)

@@ -17,8 +17,8 @@ class APIJobs(APIBase):
         headers['Content-Type'] = 'application/json'
         return self.get_response(endpoint, 'post', headers=headers, json=options)
 
-    def export_jobs(self, job_id: str, options: dict = None):
-        endpoint = f'/api/{self.api_version}/job/{job_id}'
+    def export_jobs(self, project_name: str, options: dict = None):
+        endpoint = f'/api/{self.api_version}/project/{project_name}/jobs/export'
         return self.get_response(endpoint, params=options or {'format': 'yaml'})
 
     def import_jobs(self, project_name: str, options: dict):

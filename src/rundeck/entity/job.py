@@ -27,7 +27,7 @@ class RunJob(EntityWithJobId):
         return self._result
 
 
-class ExportJob(EntityWithJobId):
+class ExportJob(EntityWithProjectName):
     _api_cls = APIJobs
     _api_func_name = 'export_jobs'
     _item_cls = ExportJobItem
@@ -37,7 +37,7 @@ class ExportJob(EntityWithJobId):
         return self._result
 
 
-class ImportJob(EntityWithJobId):
+class ImportJob(EntityWithProjectName):
     _api_cls = APIJobs
     _api_func_name = 'import_jobs'
     _item_cls = ImportJobItem

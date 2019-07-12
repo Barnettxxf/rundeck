@@ -20,7 +20,6 @@ class APIExecutions(APIBase):
         return self.get_response(endpoint)
 
     def execution_query_metrics(self, project_name=None, options=None):
-        assert self.api_version >= 29, 'Minimum supported version: 29'
         endpoint = f'/api/{self.api_version}/project/{project_name}/executions/metrics' \
             if project_name else f'/api/{self.api_version}/executions/metrics'
         return self.get_response(endpoint, params=options)

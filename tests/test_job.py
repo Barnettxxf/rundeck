@@ -19,14 +19,12 @@ def test_export_job(cli):
     r = ExportJob('c5aa2e58-1342-42c4-9350-2493f90a8728', cli)
 
     assert r.data
-    assert r.result
 
 
 def test_job_metadata(cli):
     r = JobMetadata('c5aa2e58-1342-42c4-9350-2493f90a8728', cli)
 
     assert r.data
-    assert r.result
 
 
 @pytest.mark.skip('Not support yet')
