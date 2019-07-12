@@ -6,7 +6,7 @@ class APIProjects(APIBase):
     def create_project(self, project_name=None, options=None):
         endpoint = f'/api/{self.api_version}/projects'
         headers = options.pop('headers', {'Content-Type': 'application/json'})
-        return self.get_response(endpoint, 'post', headers=headers, data=options)
+        return self.get_response(endpoint, 'post', headers=headers, json=options)
 
     def list_projects(self, project_name=None, options=None):
         endpoint = f'/api/{self.api_version}/projects'
@@ -39,8 +39,8 @@ class APIProjects(APIBase):
     def project_archive_import(self, project_name, options=None):
         endpoint = f'/api/{self.api_version}/project/{project_name}/import'
         headers = options.pop('headers', {'Content-Type': 'application/zip'})
-        files = options.pop('files')
-        return self.get_response(endpoint, 'put', data=files, headers=headers, params=options)
+        file = options.pop('file')
+        return self.get_response(endpoint, 'put', data=file, headers=headers, params=options)
 
     def history(self, project_name, options=None):
         endpoint = f'/api/{self.api_version}/project/{project_name}/history'

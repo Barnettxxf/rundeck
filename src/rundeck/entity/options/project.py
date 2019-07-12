@@ -3,7 +3,7 @@ from .base import OptionsBase, Field
 
 class ProjectCreationOptions(OptionsBase):
     name = Field()
-    config = Field()
+    config = Field(type_=dict)
 
 
 class ProjectArchiveExportOptions(OptionsBase):

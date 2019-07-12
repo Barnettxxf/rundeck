@@ -3,6 +3,15 @@ import io
 from rundeck.entity import project
 
 
+def test_create_project(cli):
+    from rundeck.entity.options.project import ProjectCreationOptions
+    options = ProjectCreationOptions(
+        name='hahahahha'
+    )
+    lp = project.ProjectCreation(cli, options=options)
+    assert lp.project_info
+
+
 def test_list_project(cli):
     lp = project.ProjectList(cli)
 
@@ -48,7 +57,7 @@ def test_project_import(cli):
             importScm=True,
             file=f.read()
         )
-        lp = project.ProjectArchiveImport(cli, 'test', options=options)
+        lp = project.ProjectArchiveImport(cli, 'test2', options=options)
         assert lp.data
         assert lp.status
 
@@ -91,5 +100,3 @@ def test_project_export_async(cli):
             f.write(lp.data)
 
         break
-
-
