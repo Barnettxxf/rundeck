@@ -123,3 +123,56 @@ class RundeckClient:
         while not self._client_queue.empty():
             _client = self._client_queue.get_nowait()
             _client.close()
+
+
+class Rundeck:
+
+    def __init__(self, server='localhost', protocol='http', username='admin', password='admin', token=None):
+        self.url = '://'.join([protocol, server])
+        self.config = {
+            'username': username,
+            'password': password,
+            'token': token
+        }
+
+        self.cli = RundeckClient(self.url, self.config)
+
+    def create_project(self, options, **kwargs):
+        from .entity.project import ProjectCreation
+        return ProjectCreation(self.cli, options, **kwargs)
+
+    def list_projects(self, **kwargs):
+        from .entity.project import ProjectList
+        return ProjectList(self.cli, **kwargs)
+
+    def list_project_resource(self, project_name, **kwargs):
+        from .entity.project import ProjectResources
+        return ProjectResources(self.cli, project_name, **kwargs)
+
+    def project_info(self, project_name, **kwargs):
+        from .entity.project import ProjectInfo
+        return ProjectInfo(self.cli, project_name, **kwargs)
+
+    def export_project(self, project_name, options=None, **kwargs):
+        from .entity.project import ProjectArchiveExport
+        return ProjectArchiveExport(self.cli, project_name, options, **kwargs)
+
+    def export_project_async(self, project_name, options=None, **kwargs):
+        from .entity.project import ProjectArchiveExportAsync
+        return ProjectArchiveExportAsync(self.cli, project_name, options, **kwargs)
+
+    def get_status_of_export_async(self, project_name, options, **kwargs):
+        from .entity.project import ProjectArchiveExportAsyncStatus
+        return ProjectArchiveExportAsyncStatus(self.cli, project_name, options, **kwargs)
+
+    def download(self, project_name, options, **kwargs):
+        from .entity.project import ProjectArchiveExportAsyncDownload
+        return ProjectArchiveExportAsyncDownload(self.cli, project_name, options, **kwargs)
+
+    def import_project(self, project_name, options, **kwargs):
+        from .entity.project import ProjectArchiveImport
+        return ProjectArchiveImport(self.cli, project_name, options, **kwargs)
+
+    def history(self, project_name, options=None, **kwargs):
+        from .entity.project import ListHistory
+        return ListHistory(self.cli, project_name, options, **kwargs)

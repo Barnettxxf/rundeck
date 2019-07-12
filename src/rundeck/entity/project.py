@@ -1,4 +1,4 @@
-from rundeck.entity.options.base import EmptyOptions
+from .options.base import EmptyOptions
 from .base import EntityWithProjectName
 from ..api.project import APIProjects
 from .item.project import ProjectItem, ResourceItem, InfoItem, EventsItem, ProjectArchiveExportAsyncItem, \
