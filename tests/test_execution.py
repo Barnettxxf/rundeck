@@ -1,14 +1,13 @@
 import pytest
 from rundeck import ExecutionQueryMetric, ExecutionInfo, ExecutionByJob, ExecutionByProject, ExecutionState, \
     ExecutionRunningList
-from rundeck.error import ResponseError
+from rundeck.exceptions import ResponseError
 
 
 def test_execution_by_project(cli):
     r = ExecutionByProject('or', cli)
 
     assert r.data
-    assert r.executions
     assert r.page
 
 

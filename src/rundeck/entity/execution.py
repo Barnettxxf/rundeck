@@ -35,6 +35,10 @@ class ExecutionByJob(EntityWithJobId):
     def page(self):
         return self._page
 
+    @property
+    def executions(self):
+        return self._result
+
 
 class ExecutionByProject(EntityWithProjectName):
     _api_cls = APIExecutions
@@ -46,6 +50,10 @@ class ExecutionByProject(EntityWithProjectName):
     def page(self):
         return self._page
 
+    @property
+    def executions(self):
+        return self._result
+
 
 class ExecutionRunningList(EntityWithProjectName):
     _api_cls = APIExecutions
@@ -56,6 +64,10 @@ class ExecutionRunningList(EntityWithProjectName):
     @property
     def page(self):
         return self._page
+
+    @property
+    def executions(self):
+        return self._result
 
 
 class ExecutionInfo(EntityWithExecId):
