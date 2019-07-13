@@ -144,6 +144,22 @@ class Rundeck:
 
         self.cli = RundeckClient(self.url, self.config)
 
+    def list_tokens(self, user=None, **kwargs):
+        from .entity.token import ListTokens
+        return ListTokens(self.cli, user, **kwargs)
+
+    def get_token(self, token_id, **kwargs):
+        from .entity.token import GetToken
+        return GetToken(self.cli, token_id, **kwargs)
+
+    def create_token(self, user=None, **kwargs):
+        from .entity.token import CreateToken
+        return CreateToken(self.cli, user, **kwargs)
+
+    def delete_token(self, token_id, **kwargs):
+        from .entity.token import DeleteToken
+        return DeleteToken(self.cli, token_id, **kwargs)
+
     def create_project(self, options, **kwargs):
         from .entity.project import ProjectCreation
         return ProjectCreation(self.cli, options, **kwargs)
@@ -203,6 +219,10 @@ class Rundeck:
     def get_job_metadata(self, job_id, options=None, **kwargs):
         from .entity.job import JobMetadata
         return JobMetadata(self.cli, job_id, options, **kwargs)
+
+    def get_job_definition(self, job_id, **kwargs):
+        from .entity.job import JobDefinition
+        return JobDefinition(self.cli, job_id, **kwargs)
 
     def get_executions_by_job(self, job_id, options=None, **kwargs):
         from .entity.execution import ExecutionByJob

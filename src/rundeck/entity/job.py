@@ -65,3 +65,13 @@ class JobMetadata(EntityWithJobId):
     @property
     def metadata(self):
         return self._result
+
+
+class JobDefinition(EntityWithJobId):
+    _api_cls = APIJobs
+    _api_func_name = 'get_job_definition'
+    _item_cls = ExportJobItem
+
+    @property
+    def definition(self):
+        return self._result
