@@ -135,8 +135,9 @@ class RundeckClient:
 
 class Rundeck:
 
-    def __init__(self, server='localhost', protocol='http', username='admin', password='admin', token=None):
-        self.url = '://'.join([protocol, server])
+    def __init__(self, server='localhost', protocol='http', port='4440', username='admin', password='admin',
+                 token=None):
+        self.url = f'{protocol}://{server}:{port}'
         self.config = {
             'username': username,
             'password': password,
