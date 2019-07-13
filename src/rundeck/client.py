@@ -130,6 +130,7 @@ class RundeckClient:
         while not self._client_queue.empty():
             _client = self._client_queue.get_nowait()
             _client.close()
+        self._close = True
 
 
 class Rundeck:
