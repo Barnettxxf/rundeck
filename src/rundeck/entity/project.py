@@ -120,3 +120,8 @@ class ListHistory(EntityWithProjectName):
     @property
     def events(self):
         return self._result
+
+
+class ProjectDeletion(EntityWithProjectName):
+    _api_cls = APIProjects
+    _api_func_name = 'delete_project'

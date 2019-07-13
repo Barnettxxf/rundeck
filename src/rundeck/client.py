@@ -178,6 +178,10 @@ class Rundeck:
         from .entity.project import ProjectCreation
         return ProjectCreation(self.cli, options, **kwargs)
 
+    def delete_project(self, project_name, **kwargs):
+        from .entity.project import ProjectDeletion
+        return ProjectDeletion(self.cli, project_name, **kwargs)
+
     def list_projects(self, **kwargs):
         from .entity.project import ProjectList
         return ProjectList(self.cli, **kwargs)
@@ -261,3 +265,6 @@ class Rundeck:
     def get_execution_state(self, exec_id, **kwargs):
         from .entity.execution import ExecutionState
         return ExecutionState(self.cli, exec_id, **kwargs)
+
+    def close(self):
+        self.cli.close()

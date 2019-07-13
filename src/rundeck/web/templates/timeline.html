@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/jazz-timeline.css') }}">
+    <title>Jazz Timeline </title>
+</head>
+<body class="custom-bg-dark">
+<div class="jazz-timeline-wrapper" id="skrollr-body">
+    <div class="jazz-timeline dark-timeline ultimate-style">
+        <div class="timeline-post turqoise-post">
+            <div class="timeline-meta">
+                <div class="meta-details">2019-07-13<br/>16:24:36</div>
+            </div>
+            <div class="timeline-icon icon-dot">
+                <div class="timeline-bar"></div>
+            </div>
+            <div class="timeline-content"
+                 data--20-bottom-top="opacity:0;transform: scale(0.5); transition: all 0.5s;"
+                 data--50-bottom-bottom="opacity:1;transform: scale(1);">
+                <h2 class="content-title turqoise-title"> Christmas Day </h2>
+                <div class="content-details">
+                    <p>Christmas or Christmas Day is an annual festival commemorating the birth of Jesus Christ,
+                        observed most commonly on December 25 as a religious and cultural celebration among billions
+                        of people around the world. </p>
+                </div>
+            </div>
+        </div>
+        <div class="timeline-post black-post">
+            <div class="timeline-meta">
+                <div class="meta-details">2019-07-13<br/>18:36:02</div>
+            </div>
+            <div class="timeline-icon icon-dot">
+                <div class="timeline-bar"></div>
+            </div>
+            <div class="timeline-content"
+                 data--20-bottom-top="opacity:0;transform: scale(0.5); transition: all 0.5s;"
+                 data--50-bottom-bottom="opacity:1;transform: scale(1);">
+                <h2 class="content-title black-title"> Thanksgiving Day </h2>
+                <div class="content-details">
+                    <p>Thanksgiving Day, is an important public holiday, celebrated on the fourth Thursday in November
+                        in the United States. It originated as a harvest festival. Thanksgiving has been celebrated
+                        nationally
+                        on and off since 1789, after a proclamation by George Washington.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript" src="{{ url_for('static', filename='js/skrollr.min.js') }}"></script>
+<script type="text/javascript">
+    var s = skrollr.init();
+</script>
+</body>
+</html>

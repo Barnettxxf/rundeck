@@ -74,4 +74,4 @@ class JobDefinition(EntityWithJobId):
 
     @property
     def definition(self):
-        return self._result
+        return self._result[0] if isinstance(self._result, list) else self._result

@@ -45,3 +45,7 @@ class APIProjects(APIBase):
     def history(self, project_name, options=None):
         endpoint = f'/api/{self.api_version}/project/{project_name}/history'
         return self.get_response(endpoint, params=options)
+
+    def delete_project(self, project_name, options=None):
+        endpoint = f'/api/{self.api_version}/project/{project_name}'
+        return self.get_response(endpoint, 'delete')

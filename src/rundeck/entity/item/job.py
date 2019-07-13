@@ -87,6 +87,9 @@ class ExportJobItem(Item):
     sequence = Field()
     timeout = Field()
 
+    def __repr__(self):
+        return f'<{self.__class__.__name__} id={self.id} name={self.name}>'
+
 
 class DeleteJobsItem(Item):
     requestCount = Field()
@@ -119,3 +122,6 @@ class ListJobUploadedFileItem(Item):
     fileName = Field()
     expirationDate = Field()
     execId = Field()
+
+    def __repr__(self):
+        return f'<{self.__class__.__name__} id={self.id} user={self.user}>'

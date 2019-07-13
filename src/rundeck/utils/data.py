@@ -21,13 +21,13 @@ week = {'sun': 0, 'mon': 1, 'tue': 2, 'wed': 3, 'thu': 4, 'fri': 5,
         'sat': 6}
 
 
-def get_job_schedules(pn, cli, options=None, api_version=19, period='year'):
-    jl = JobList(pn, cli, options, api_version)
+def get_job_schedules(pn, rd, options=None, api_version=19, period='year'):
+    jl = rd.list_jobs(pn, options, api_version)
     job_ids = jl.job_ids
 
     result = {}
     for job_id in job_ids:
-        jd = JobDefinition(cli, job_id)
+        jd = rd.get_job_definition(job_id)
 
         sc = jd.definition.schedule
         if sc:

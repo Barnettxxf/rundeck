@@ -36,9 +36,9 @@ class ExportJobOptions(OptionsBase):
 
 class ImportJobOptions(OptionsBase):
     content = Field()
-    fileformat = Field()
-    dupeOption = Field()
-    uuidOption = Field()
+    fileformat = Field(type_=['xml', 'yaml'], default='yaml')
+    dupeOption = Field(type_=['skip', 'create', 'update'], default='create')
+    uuidOption = Field(type_=['preserve', 'remove'], default='preserve')
 
 
 class JobForecastOptions(OptionsBase):
@@ -68,3 +68,24 @@ class UploadJobOptionFileOptions(OptionsBase):
 class ListJobUploadedFileOptions(OptionsBase):
     max = Field()
     fileState = Field(type_=['temp', 'deleted', 'expired', 'retained'])
+
+
+class ImportJobTemplateOptions(OptionsBase):
+    description = Field()
+    group = Field()
+    name = Field()
+    filter = Field()
+    recipients = Field()
+    subject = Field()
+    delay = Field()
+    retry = Field()
+    month = Field()
+    hour = Field()
+    minute = Field()
+    seconds = Field()
+    day = Field()
+    year = Field()
+    command_description = Field()
+    exec = Field()
+    strategy = Field()
+    timeout = Field()

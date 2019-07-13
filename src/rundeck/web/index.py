@@ -1,10 +1,8 @@
-import datetime
 from collections import defaultdict
 
 from flask.blueprints import Blueprint
 from flask import render_template, url_for, current_app as app, g
 
-from ..client import RundeckClient
 from ..utils.data import get_job_schedules, months, month_fullname
 
 bp = Blueprint('index', __name__)
@@ -26,7 +24,7 @@ def index():
         'November': {},
         'December': {},
     }
-    scs = get_job_schedules('or', g.rundeckcli)
+    scs = get_job_schedules('or', g.rd)
     total = 0
     for v in scs.values():
         total += len(v)
@@ -49,17 +47,3 @@ def index():
     return render_template('index.html', **content)
 
 
-@bp.before_app_request
-def add_rundeckcli():
-    if not g.get('rundeckcli'):
-        username = app.config['RUNDECK_USERNAME']
-        password = app.config['RUNDECK_PASSWORD']
-        url = app.config['RUNDECK_URL']
-        g.rundeckcli = RundeckClient(url, {'username': username, 'password': password})
-
-
-@bp.teardown_app_request
-def add_close_rundeckcli(vale):
-    rundeckcli = g.pop('rundeckcli', None)
-    if rundeckcli:
-        rundeckcli.close()
