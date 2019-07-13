@@ -22,21 +22,19 @@ class BaseClient:
         self._is_auth = False
 
     def auth(self):
-        if not self.config['token']:
+        if not self.config.get('token'):
             rsp = self._session.post(self._base_url + '/j_security_check', headers=self.headers, data={
                 'j_username': self.config['username'],
                 'j_password': self.config['password'],
             })
+
+            if 'Invalid username and password' in rsp.text:
+                raise AuthFailError('Invalid username and password')
         else:
-            headers = self.headers.copy()
-            headers.update({
-                'X-Rundeck-Auth-Token': self.config['token']
+            self.headers.update({
+                'X-Rundeck-Auth-Token': self.config['token'],
             })
-            rsp = self._session.post(self._base_url + '/api/1/projects', headers=headers)
-
-        if 'Invalid username and password' in rsp.text:
-            raise AuthFailError('Invalid username and password')
-
+        self.updated_at = datetime.datetime.now()
         self._is_auth = True
 
     @property
@@ -166,9 +164,9 @@ class Rundeck:
         from .entity.token import GetToken
         return GetToken(self.cli, token_id, **kwargs)
 
-    def create_token(self, user=None, **kwargs):
+    def create_token(self, user=None, options=None, **kwargs):
         from .entity.token import CreateToken
-        return CreateToken(self.cli, user, **kwargs)
+        return CreateToken(self.cli, user, options=options, **kwargs)
 
     def delete_token(self, token_id, **kwargs):
         from .entity.token import DeleteToken
@@ -177,6 +175,10 @@ class Rundeck:
     def create_project(self, options, **kwargs):
         from .entity.project import ProjectCreation
         return ProjectCreation(self.cli, options, **kwargs)
+
+    def delete_project(self, project_name, **kwargs):
+        from .entity.project import ProjectDeletion
+        return ProjectDeletion(self.cli, project_name, **kwargs)
 
     def list_projects(self, **kwargs):
         from .entity.project import ProjectList
@@ -261,3 +263,6 @@ class Rundeck:
     def get_execution_state(self, exec_id, **kwargs):
         from .entity.execution import ExecutionState
         return ExecutionState(self.cli, exec_id, **kwargs)
+
+    def close(self):
+        self.cli.close()

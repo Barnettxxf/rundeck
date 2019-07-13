@@ -15,6 +15,10 @@ class ListTokens(Entity):
     def tokens(self):
         return self._result
 
+    @property
+    def token_ids(self):
+        return [x['id'] for x in self.tokens]
+
 
 class GetToken(Entity):
     _api_cls = APIToken
@@ -28,6 +32,10 @@ class GetToken(Entity):
     def token(self):
         return self._result
 
+    @property
+    def token_id(self):
+        return self._result['id']
+
 
 class CreateToken(Entity):
     _api_cls = APIToken
@@ -38,7 +46,7 @@ class CreateToken(Entity):
         super().__init__(client, user, options, api_version)
 
     @property
-    def result(self):
+    def token(self):
         return self._result
 
 

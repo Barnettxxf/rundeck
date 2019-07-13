@@ -1,35 +1,61 @@
-from rundeck import JobForecast, JobList, JobMetadata, ExportJob, ListJobOptions
-import pytest
+from rundeck import ListJobOptions
 
 
-def test_job_list(cli):
-    r = JobList('or', cli)
+def test_job_list(rd):
+    r = rd.list_jobs('or')
 
     assert r.data
     assert r.jobs
     assert r.project_name
 
     o = ListJobOptions(groupPath='simple')
-    r = JobList('or', cli, options=o)
+    r = rd.list_jobs('or', o)
 
     assert r.data
 
 
-def test_export_job(cli):
-    r = ExportJob('c5aa2e58-1342-42c4-9350-2493f90a8728', cli)
+def test_export_jobs(rd):
+    r = rd.export_jobs(rd.list_projects().project_names[-1])
 
     assert r.data
 
 
-def test_job_metadata(cli):
-    r = JobMetadata('c5aa2e58-1342-42c4-9350-2493f90a8728', cli)
+def test_job_metadata(rd):
+    r = rd.get_job_metadata(rd.list_jobs('or').job_ids[-1])
 
     assert r.data
 
 
-@pytest.mark.skip('Not support yet')
-def test_job_forecast(cli):
-    r = JobForecast('c5aa2e58-1342-42c4-9350-2493f90a8728', cli)
+def test_get_job_definition(rd):
+    r = rd.get_job_definition(rd.list_jobs('or').job_ids[-1])
+    assert r.data
+
+
+def test_import_jobs(rd):
+    from rundeck.entity.options.job import ImportJobOptions
+    from rundeck.utils.template import import_job_tmpl
+    o = ImportJobOptions(
+        content=import_job_tmpl.substitute(**{
+            'description': 'test',
+            'group': 'test',
+            'name': 'test',
+            'filter': '.*',
+            'recipients': 'xuxiongfeng@yimian.com.cn',
+            'subject': 'test',
+            'delay': '1m',
+            'retry': '2',
+            'month': '*',
+            'hour': '*',
+            'minute': '0/5',
+            'seconds': '0',
+            'day': '*',
+            'year': '*',
+            'command_description': 'test',
+            'exec': 'ls',
+            'strategy': '',
+            'timeout': '2s',
+        })
+    )
+    r = rd.import_jobs('or', o)
 
     assert r.data
-    assert r.forecast

@@ -6,7 +6,7 @@ import yaml
 from bs4 import BeautifulSoup
 
 from ..client import RundeckClient
-from ..error import ResponseError
+from ..exceptions import ResponseError
 
 
 class APIBase:
@@ -18,6 +18,8 @@ class APIBase:
     def get_response(self, endpoint, method='get', **kwargs):
         func = getattr(self.client, method.lower())
         rsp = func(endpoint, **kwargs)
+        if rsp.status_code == 204:
+            return ''
         content_type = rsp.headers.get('Content-Type', '')
         if 'zip' in content_type:
             return rsp.content
@@ -30,8 +32,12 @@ class APIBase:
             else:
                 r = text
         except demjson.JSONDecodeError:
-            error = BeautifulSoup(text)
-            raise ResponseError(error.find('div', class_="text-danger").text.strip())
+            error = BeautifulSoup(text, 'html.parser')
+            if 'xml' in content_type:
+                error_text = error.find('message').text
+            else:
+                error_text = error.find('div', class_="text-danger").text.strip()
+            raise ResponseError(error_text)
         if isinstance(r, dict) and r.get('error', False):
             raise ResponseError(r.get('message', ''))
         return r

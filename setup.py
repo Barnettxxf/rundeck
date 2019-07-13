@@ -21,9 +21,11 @@ setup(
     author="Barnett Xu",
     author_email="15102096586@163.com",
     packages=find_packages("src"),
+
     package_data={
-        'rundeck': ['web/templates/*.html', 'web/static/*'],
+        'rundeck': ['web/templates/*.html', 'web/static/*/*/*', 'web/static/*/*'],
     },
+    include_package_data=True,
     package_dir={"": "src"},
     long_description="""Rundeck Client""",
     platforms="any",

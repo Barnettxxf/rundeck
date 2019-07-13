@@ -1,6 +1,6 @@
 from string import Template
 
-tmpl = Template("""
+import_job_tmpl = Template("""
 - description: ${description}
   executionEnabled: true
   group: ${group}

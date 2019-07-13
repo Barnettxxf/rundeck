@@ -10,7 +10,9 @@ class Config(object):
     SECRET_KEY = 'rundec-cli'
     RUNDECK_USERNAME = os.environ.get('RUNDECK_USERNAME', 'admin')
     RUNDECK_PASSWORD = os.environ.get('RUNDECK_PASSWORD', 'admin')
-    RUNDECK_URL = os.environ.get('RUNDECK_URL', 'http://localhost:4440')
+    RUNDECK_SERVER = os.environ.get('RUNDECK_SERVER', 'localhost')
+    RUNDECK_PORT = os.environ.get('RUNDECK_PORT', 4440)
+    RUNDECK_TOKEN = os.environ.get('RUNDECK_TOKEN')
 
 
 class ProductionConfig(Config):

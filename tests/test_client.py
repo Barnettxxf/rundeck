@@ -6,7 +6,7 @@ Usage:
 import pytest
 
 from rundeck.client import RundeckClient
-from rundeck.error import AuthFailError
+from rundeck.exceptions import AuthFailError
 
 rundeck_url = 'http://localhost:4440'
 

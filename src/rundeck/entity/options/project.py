@@ -30,7 +30,7 @@ class ProjectArchiveExportAsyncDownloadOptions(ProjectArchiveExportAsyncStatusOp
 
 
 class ProjectArchiveImportOption(OptionsBase):
-    jobUuidOption = Field(type_=['preserve', 'remove'])
+    jobUuidOption = Field(type_=['preserve', 'remove'], default='preserve')
     importExecutions = Field(type_=bool)
     importConfig = Field(type_=bool)
     importACL = Field(type_=bool)
