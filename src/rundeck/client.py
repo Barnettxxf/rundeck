@@ -6,7 +6,7 @@ from collections import ChainMap
 
 import requests
 
-from .error import AuthFailError
+from .exceptions import AuthFailError
 
 
 class BaseClient:
@@ -143,6 +143,18 @@ class Rundeck:
         }
 
         self.cli = RundeckClient(self.url, self.config)
+
+    @property
+    def token(self):
+        return self.config['token']
+
+    @token.setter
+    def token(self, t):
+        self.config['token'] = t
+
+    @token.deleter
+    def token(self):
+        self.config['token'] = None
 
     def list_tokens(self, user=None, **kwargs):
         from .entity.token import ListTokens
