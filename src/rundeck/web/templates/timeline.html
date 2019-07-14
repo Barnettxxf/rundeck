@@ -9,14 +9,15 @@
 <body class="custom-bg-dark">
 <div class="jazz-timeline-wrapper" id="skrollr-body">
     {% for item in items %}
+        <a href="{{ url_for('index.job_timeline', job=item.id) }}">
         <div class="jazz-timeline dark-timeline ultimate-style">
             <div class="timeline-post black-post">
                 <div class="timeline-meta">
                     <div class="meta-details">
                         {% if item.schedule %}
-                        {{ item.schedule | next_schedule_date }}
+                        {{ item.next_schedule | next_schedule_date }}
                         <br/>
-                        {{ item.schedule | next_schedule_time }}
+                        {{ item.next_schedule | next_schedule_time }}
                         {% else %}
                             Never
                         {% endif %}
@@ -38,6 +39,8 @@
                 </div>
             </div>
         </div>
+        </a>
+
     {% endfor %}
 </div>
 <script type="text/javascript" src="{{ url_for('static', filename='js/skrollr.min.js') }}"></script>

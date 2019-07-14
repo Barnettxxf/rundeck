@@ -8,6 +8,24 @@ warnings.filterwarnings('ignore')
 __all__ = ['crontab_from_rundeck_schedule', 'format_crontab', 'CronTab']
 
 
+def get_monday(now=None):
+    now = now or datetime.now()
+    now = now.replace(hour=0, minute=0, second=0, microsecond=0)
+    one_day = timedelta(days=1)
+    while now.weekday() != 0:
+        now -= one_day
+    return now
+
+
+def get_sunday(now=None):
+    now = now or datetime.now()
+    now = now.replace(hour=0, minute=0, second=0, microsecond=0)
+    one_day = timedelta(days=1)
+    while now.weekday() != 6:
+        now -= one_day
+    return now
+
+
 def get_start_and_end(now=None, period='day'):
     if now:
         if isinstance(now, datetime):
@@ -22,11 +40,7 @@ def get_start_and_end(now=None, period='day'):
     if period == 'day':
         return start, end
     elif period == 'week':
-        while start.weekday() != 0:
-            start -= _one_day
-        while end.weekday() != 6:
-            end -= _one_day
-        return start, end
+        return get_monday(), get_sunday()
     elif period == 'month':
         return start.replace(day=1), start.replace(month=start.month + 1, day=1) - _one_day
     elif period == 'year':

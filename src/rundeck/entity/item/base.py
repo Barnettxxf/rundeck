@@ -75,6 +75,9 @@ class DictItem(dict):
     def to_dict(self):
         return dict(self)
 
+    def copy(self):
+        return self.__class__(**self.to_dict())
+
     def __repr__(self):
         return f'<{self.__class__.__name__} ({id(self)})>'
 

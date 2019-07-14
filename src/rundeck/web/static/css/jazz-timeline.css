@@ -11,6 +11,12 @@
     font-style: normal
 }
 
+a:hover,
+a:active,
+a:focus {
+  color: darkred;
+  text-decoration: none;
+}
 
 .jazz-timeline-wrapper, .jazz-timeline-wrapper * {
     -webkit-box-sizing: border-box;
@@ -29,7 +35,7 @@
 }
 
 .jazz-timeline {
-    padding: 20px 0;
+    padding: 10px 0;
     position: relative
 }
 
@@ -53,7 +59,7 @@
 
 .jazz-timeline .timeline-post {
     margin-left: 10%;
-    margin-top: 20px;
+    margin-top: 0;
     border: 0 none;
     padding: 0 0 5px 60px;
     width: 80%
