@@ -28,6 +28,8 @@ class ExecutionItem(Item):
     def __repr__(self):
         return f'<{self.__class__.__name__} id={self.id} job={self.job} project={self.project}>'
 
+    __str__ = __repr__
+
 
 class ExecutionQueryMetricItem(Item):
     duration = Field()
@@ -36,6 +38,8 @@ class ExecutionQueryMetricItem(Item):
 
     def __repr__(self):
         return f'{self.__class__.__name__} status={self.status}'
+
+    __str__ = __repr__
 
 
 class ExecutionStateItem(Item):

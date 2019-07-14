@@ -24,7 +24,7 @@ def index():
         'November': {},
         'December': {},
     }
-    scs = get_job_schedules('or', g.rd)
+    scs = get_job_schedules('or')
     total = 0
     for v in scs.values():
         total += len(v)
@@ -47,3 +47,9 @@ def index():
     return render_template('index.html', **content)
 
 
+@bp.route('/timeline')
+def timeline():
+    content = {
+
+    }
+    return render_template('timeline.html', **content)

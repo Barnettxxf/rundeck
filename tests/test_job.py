@@ -1,4 +1,3 @@
-from rundeck import ListJobOptions
 
 
 def test_job_list(rd):
@@ -8,6 +7,8 @@ def test_job_list(rd):
     assert r.jobs
     assert r.project_name
 
+    from rundeck import ListJobOptions
+
     o = ListJobOptions(groupPath='simple')
     r = rd.list_jobs('or', o)
 
@@ -15,9 +16,14 @@ def test_job_list(rd):
 
 
 def test_export_jobs(rd):
-    r = rd.export_jobs(rd.list_projects().project_names[-1])
+    from rundeck import ExportJobOptions
+    o = ExportJobOptions(
+        groupPath='simple'
+    )
+    r = rd.export_jobs(rd.list_projects().project_names[-1], o)
 
     assert r.data
+    assert r.exports[-1].to_yaml()
 
 
 def test_job_metadata(rd):

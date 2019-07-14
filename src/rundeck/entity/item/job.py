@@ -1,3 +1,5 @@
+import yaml
+
 from .base import Field, Item
 
 
@@ -15,6 +17,8 @@ class JobListItem(Item):
 
     def __repr__(self):
         return f'<{self.__class__.__name__} id={self.id} name={self.name}>'
+
+    __str__ = __repr__
 
 
 class RunJobItem(Item):
@@ -47,6 +51,8 @@ class JobForecastItem(Item):
     def __repr__(self):
         return f'<{self.__class__.__name__} name={self.name}>'
 
+    __str__ = __repr__
+
 
 class JobMetadataItem(Item):
     id = Field()
@@ -65,14 +71,17 @@ class JobMetadataItem(Item):
     def __repr__(self):
         return f'<{self.__class__.__name__} id={self.id} name={self.name}>'
 
+    __str__ = __repr__
+
 
 class ExportJobItem(Item):
     id = Field()
+    uuid = Field()
     name = Field()
     group = Field()
     description = Field()
     schedule = Field()
-    uuid = Field()
+    options = Field()
     defaultTab = Field()
     executionEnabled = Field()
     loglevel = Field()
@@ -89,6 +98,11 @@ class ExportJobItem(Item):
 
     def __repr__(self):
         return f'<{self.__class__.__name__} id={self.id} name={self.name}>'
+
+    __str__ = __repr__
+
+    def to_yaml(self):
+        return yaml.safe_dump([dict(self), ])
 
 
 class DeleteJobsItem(Item):
@@ -125,3 +139,5 @@ class ListJobUploadedFileItem(Item):
 
     def __repr__(self):
         return f'<{self.__class__.__name__} id={self.id} user={self.user}>'
+
+    __str__ = __repr__

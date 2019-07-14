@@ -1,5 +1,5 @@
 from .crontab import CronTab, crontab_from_rundeck_schedule
-from ..entity.job import JobList, JobDefinition
+from flask import g
 
 month_fullname = {
     'jan': 'January',
@@ -21,13 +21,13 @@ week = {'sun': 0, 'mon': 1, 'tue': 2, 'wed': 3, 'thu': 4, 'fri': 5,
         'sat': 6}
 
 
-def get_job_schedules(pn, rd, options=None, api_version=19, period='year'):
-    jl = rd.list_jobs(pn, options, api_version)
+def get_job_schedules(pn, options=None, api_version=19, period='year'):
+    jl = g.rd.list_jobs(pn, options, api_version=api_version)
     job_ids = jl.job_ids
 
     result = {}
     for job_id in job_ids:
-        jd = rd.get_job_definition(job_id)
+        jd = g.rd.get_job_definition(job_id)
 
         sc = jd.definition.schedule
         if sc:

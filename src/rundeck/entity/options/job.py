@@ -28,7 +28,7 @@ class RetryJobOptions(OptionsBase):
 
 
 class ExportJobOptions(OptionsBase):
-    format = Field()
+    format = Field(type_=['xml', 'yaml'], default='yaml')
     idlist = Field()
     groupPath = Field()
     jobFilter = Field()

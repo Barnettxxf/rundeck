@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, g
 from .config import ProductionConfig
 from ..client import Rundeck
 

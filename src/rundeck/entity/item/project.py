@@ -10,6 +10,8 @@ class ProjectItem(Item):
     def __repr__(self):
         return f'<{self.__class__.__name__} name={self.name}>'
 
+    __str__ = __repr__
+
 
 class ResourceItem(Item):
     nodename = Field()
@@ -25,6 +27,8 @@ class ResourceItem(Item):
     def __repr__(self):
         return f'<{self.__class__.__name__} nodename={self.nodename} hostname={self.hostname}>'
 
+    __str__ = __repr__
+
 
 class InfoItem(Item):
     name = Field()
@@ -34,6 +38,8 @@ class InfoItem(Item):
 
     def __repr__(self):
         return f'<{self.__class__.__name__} name={self.name}>'
+
+    __str__ = __repr__
 
 
 class ProjectArchiveExportAsyncItem(Item):
