@@ -1,3 +1,4 @@
+from ..utils.common import save_zip
 from .options.base import EmptyOptions
 from .base import EntityWithProjectName
 from ..api.project import APIProjects
@@ -67,6 +68,9 @@ class ProjectArchiveExport(EntityWithProjectName):
     def zip_stream(self):
         return self._result
 
+    def save(self, path=None):
+        save_zip(self, path)
+
 
 class ProjectArchiveExportAsync(EntityWithProjectName):
     _api_cls = APIProjects
@@ -99,6 +103,9 @@ class ProjectArchiveExportAsyncDownload(EntityWithProjectName):
     @property
     def zip_stream(self):
         return self._result
+
+    def save(self, path=None):
+        save_zip(self, path)
 
 
 class ProjectArchiveImport(EntityWithProjectName):

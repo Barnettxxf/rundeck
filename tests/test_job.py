@@ -18,7 +18,7 @@ def test_job_list(rd):
 def test_export_jobs(rd):
     from rundeck import ExportJobOptions
     o = ExportJobOptions(
-        groupPath='simple'
+        groupPath='farfetch'
     )
     r = rd.export_jobs(rd.list_projects().project_names[-1], o)
 
