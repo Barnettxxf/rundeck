@@ -68,6 +68,7 @@ def timeline(project, group):
             if e.schedule:
                 ct = CronTab(crontab_from_rundeck_schedule(e.schedule))
                 start, end = get_monday(), get_sunday()
+                print(start, end)
                 while True:
                     sec = ct.next(start)
                     start = start + datetime.timedelta(seconds=sec)

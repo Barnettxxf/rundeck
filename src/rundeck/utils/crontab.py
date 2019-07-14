@@ -5,8 +5,6 @@ from datetime import timedelta, datetime
 
 warnings.filterwarnings('ignore')
 
-__all__ = ['crontab_from_rundeck_schedule', 'format_crontab', 'CronTab']
-
 
 def get_monday(now=None):
     now = now or datetime.now()
@@ -23,6 +21,8 @@ def get_sunday(now=None):
     one_day = timedelta(days=1)
     while now.weekday() != 6:
         now -= one_day
+    if (now - datetime.now()).days < 0:
+        now += timedelta(days=7)
     return now
 
 

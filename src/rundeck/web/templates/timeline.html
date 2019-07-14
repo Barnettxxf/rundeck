@@ -32,8 +32,10 @@
                      data--50-bottom-bottom="opacity:1;transform: scale(1);">
                     <h2 class="content-title black-title"> {{ item.group }} - {{ item.name }} </h2>
                     <div class="content-details">
+                        {% set count = 1 %}
                         {% for seq in item.sequence['commands'] %}
-                            <p> {{ seq['exec'] }}</p>
+                            <p>{{ count }}:&nbsp; {{ seq['exec'] }}</p>
+                            {% set count = count + 2 %}
                         {% endfor %}
                     </div>
                 </div>
