@@ -34,7 +34,7 @@
                     <div class="content-details">
                         {% set count = 1 %}
                         {% for seq in item.sequence['commands'] %}
-                            <p>{{ count }}:&nbsp; {{ seq['exec'] }}</p>
+                            <p><em>{{ count }}:</em>&nbsp; {{ seq['exec'] }}</p>
                             {% set count = count + 2 %}
                         {% endfor %}
                     </div>
