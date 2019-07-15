@@ -32,7 +32,6 @@ setup(
     install_requires=[
         "demjson",
         "requests",
-        "pytest",
         "pyyaml",
         "beautifulsoup4",
         "flask",
