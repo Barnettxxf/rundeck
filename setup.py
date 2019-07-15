@@ -36,8 +36,6 @@ setup(
         "pyyaml",
         "beautifulsoup4",
         "flask",
-        "flask_sqlalchemy",
-        "flask_paginate",
         "crontab",
     ],
     entry_points={
