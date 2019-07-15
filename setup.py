@@ -1,8 +1,3 @@
-"""
-Author: xuxiongfeng
-Date: 2019-06-13 17:05
-Usage: 
-"""
 from collections import OrderedDict
 
 from setuptools import setup, find_packages
