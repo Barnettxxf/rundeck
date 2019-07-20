@@ -151,6 +151,8 @@ class Rundeck:
     @token.setter
     def token(self, t):
         self.config['token'] = t
+        self.cli.close()
+        self.cli = RundeckClient(self.url, self.config)
 
     @token.deleter
     def token(self):
